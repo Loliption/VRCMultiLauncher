@@ -1,8 +1,28 @@
 # VRChat Multi Launcher
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/Platform-Windows%2010%2B-blue?logo=windows)](https://github.com/Loliption/VRCMultiLauncher/releases)
+[![Release](https://img.shields.io/github/v/release/Loliption/VRCMultiLauncher?include_prereleases)](https://github.com/Loliption/VRCMultiLauncher/releases)
+
 A Windows desktop application for launching and managing multiple VRChat instances simultaneously.
 
 > **日本語の説明は下部にあります / Japanese documentation below.**
+
+---
+
+## Table of Contents
+
+- [Features](#features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Profile Settings](#profile-settings)
+  - [OSC Port Assignment](#osc-port-assignment)
+- [Settings File](#settings-file)
+- [License](#license)
+- [日本語ドキュメント](#vrchat-multi-launcher日本語)
+
+---
 
 ## Features
 
@@ -14,18 +34,24 @@ A Windows desktop application for launching and managing multiple VRChat instanc
 - **Kill Process** — terminate a running instance directly from the UI
 - **Language Switching** — toggle between English and Japanese from the toolbar
 
+---
+
 ## Requirements
 
 - Windows 10 version 1809 (build 17763) or later
 - [Windows App Runtime 1.7](https://aka.ms/windowsappsdk/1.7/latest/windowsappruntimeinstall-x64.exe) installed
 
+---
+
 ## Installation
 
-1. Download the latest release ZIP and extract it anywhere.
+1. Download the latest release ZIP from the [Releases page](https://github.com/Loliption/VRCMultiLauncher/releases) and extract it anywhere.
 2. If not yet installed, run `windowsappruntimeinstall-x64.exe` first (link above).
 3. Run `VrcMultiLauncherCS.exe`.
 
 > The `libs/` folder must remain in the same directory as the EXE.
+
+---
 
 ## Usage
 
@@ -58,13 +84,20 @@ A Windows desktop application for launching and managing multiple VRChat instanc
 ### OSC Port Assignment
 
 Default auto-assignment:
-- Profile 0: In `9000`, Out `9001`
-- Profile 1: In `9010`, Out `9011`
-- Profile N: In `9000 + N×10`, Out `9001 + N×10`
+
+| Profile | Receive (In) | Send (Out) |
+|---------|-------------|------------|
+| 0 | 9000 | 9001 |
+| 1 | 9010 | 9011 |
+| N | 9000 + N×10 | 9001 + N×10 |
+
+---
 
 ## Settings File
 
 Profiles, executable path, and language preference are saved to `settings.json` in the same directory as the EXE.
+
+---
 
 ## License
 
@@ -74,7 +107,25 @@ This project is released under the [MIT License](LICENSE).
 
 # VRChat Multi Launcher（日本語）
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/Platform-Windows%2010%2B-blue?logo=windows)](https://github.com/Loliption/VRCMultiLauncher/releases)
+
 複数の VRChat インスタンスを同時に起動・管理するための Windows デスクトップアプリケーションです。
+
+---
+
+## 目次
+
+- [機能](#機能)
+- [動作要件](#動作要件)
+- [インストール](#インストール)
+- [使い方](#使い方)
+  - [プロファイル設定項目](#プロファイル設定項目)
+  - [OSC ポートの自動割り当て](#osc-ポートの自動割り当て)
+- [設定ファイル](#設定ファイル)
+- [ライセンス](#ライセンス)
+
+---
 
 ## 機能
 
@@ -86,18 +137,24 @@ This project is released under the [MIT License](LICENSE).
 - **強制終了** — UI から実行中のインスタンスを直接終了
 - **言語切り替え** — ツールバーのボタンで日本語/英語を切り替え（設定は自動保存）
 
+---
+
 ## 動作要件
 
 - Windows 10 バージョン 1809（ビルド 17763）以降
 - [Windows App Runtime 1.7](https://aka.ms/windowsappsdk/1.7/latest/windowsappruntimeinstall-x64.exe) のインストール
 
+---
+
 ## インストール
 
-1. 最新リリースの ZIP をダウンロードして任意の場所に展開します。
+1. [Releases ページ](https://github.com/Loliption/VRCMultiLauncher/releases)から最新リリースの ZIP をダウンロードして任意の場所に展開します。
 2. Windows App Runtime 未インストールの場合は `windowsappruntimeinstall-x64.exe` を先に実行してください（上記リンク）。
 3. `VrcMultiLauncherCS.exe` を起動します。
 
 > `libs/` フォルダは EXE と同じディレクトリに置いてください。
+
+---
 
 ## 使い方
 
@@ -129,13 +186,19 @@ This project is released under the [MIT License](LICENSE).
 
 ### OSC ポートの自動割り当て
 
-- プロファイル 0: 受信 `9000`、送信 `9001`
-- プロファイル 1: 受信 `9010`、送信 `9011`
-- プロファイル N: 受信 `9000 + N×10`、送信 `9001 + N×10`
+| プロファイル | 受信（In） | 送信（Out） |
+|------------|-----------|------------|
+| 0 | 9000 | 9001 |
+| 1 | 9010 | 9011 |
+| N | 9000 + N×10 | 9001 + N×10 |
+
+---
 
 ## 設定ファイル
 
 プロファイル・実行ファイルパス・言語設定は EXE と同じディレクトリの `settings.json` に保存されます。
+
+---
 
 ## ライセンス
 
