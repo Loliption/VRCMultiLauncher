@@ -1,0 +1,31 @@
+# Claude Code settings
+.claude/
+
+# Build outputs
+VrcMultiLauncherCS/bin/
+VrcMultiLauncherCS/obj/
+
+# Publish / dist outputs
+publish/
+publish_test/
+build/
+dist/
+
+# User settings (contains local paths)
+settings.json
+
+# Python / build scripts
+*.py
+*.bat
+*.ps1
+*.spec
+__pycache__/
+*.pyc
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Logs
+*.log

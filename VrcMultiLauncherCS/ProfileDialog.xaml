@@ -1,0 +1,147 @@
+<ContentDialog
+    x:Class="VrcMultiLauncherCS.ProfileDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:models="using:VrcMultiLauncherCS.Models"
+    PrimaryButtonText="{x:Bind Loc.SaveBtn, Mode=OneWay}"
+    CloseButtonText="{x:Bind Loc.CancelBtn, Mode=OneWay}"
+    DefaultButton="Primary">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="560" MinWidth="500">
+        <StackPanel Spacing="16" Padding="0,4,0,4">
+
+            <!-- Basic Info -->
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    CornerRadius="8" Padding="16">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="{x:Bind Loc.BasicInfoLabel, Mode=OneWay}"
+                               Style="{StaticResource BodyStrongTextBlockStyle}"/>
+                    <TextBox x:Name="NameBox"
+                             Header="{x:Bind Loc.NameHeader, Mode=OneWay}"
+                             PlaceholderText="{x:Bind Loc.NamePlaceholder, Mode=OneWay}"/>
+                    <NumberBox x:Name="IdBox" Header="ID"
+                               Minimum="0" Maximum="9999"
+                               SpinButtonPlacementMode="Inline"/>
+                    <CheckBox x:Name="NoVrCheck"
+                              Content="{x:Bind Loc.NoVrLabel, Mode=OneWay}"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Display -->
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    CornerRadius="8" Padding="16">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="{x:Bind Loc.DisplayLabel, Mode=OneWay}"
+                               Style="{StaticResource BodyStrongTextBlockStyle}"/>
+                    <CheckBox x:Name="FullscreenCheck"
+                              Content="{x:Bind Loc.FullscreenLabel, Mode=OneWay}"/>
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <NumberBox x:Name="WidthBox"
+                                   Header="{x:Bind Loc.WidthHeader, Mode=OneWay}"
+                                   Minimum="100" Maximum="7680" Width="110"
+                                   SpinButtonPlacementMode="Compact"/>
+                        <NumberBox x:Name="HeightBox"
+                                   Header="{x:Bind Loc.HeightHeader, Mode=OneWay}"
+                                   Minimum="100" Maximum="4320" Width="110"
+                                   SpinButtonPlacementMode="Compact"/>
+                        <NumberBox x:Name="FpsBox" Header="FPS"
+                                   Minimum="10" Maximum="240" Width="90"
+                                   SpinButtonPlacementMode="Compact"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- OSC -->
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    CornerRadius="8" Padding="16">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="{x:Bind Loc.OscLabel, Mode=OneWay}"
+                               Style="{StaticResource BodyStrongTextBlockStyle}"/>
+                    <CheckBox x:Name="OscCheck"
+                              Content="{x:Bind Loc.EnableOscLabel, Mode=OneWay}"
+                              Checked="OscCheck_Changed" Unchecked="OscCheck_Changed"/>
+                    <StackPanel x:Name="OscPortPanel" Orientation="Horizontal" Spacing="12">
+                        <NumberBox x:Name="OscInBox"
+                                   Header="{x:Bind Loc.OscInHeader, Mode=OneWay}"
+                                   Minimum="1024" Maximum="65535" Width="140"
+                                   SpinButtonPlacementMode="Compact"/>
+                        <NumberBox x:Name="OscOutBox"
+                                   Header="{x:Bind Loc.OscOutHeader, Mode=OneWay}"
+                                   Minimum="1024" Maximum="65535" Width="140"
+                                   SpinButtonPlacementMode="Compact"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Launch Arguments -->
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    CornerRadius="8" Padding="16">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="{x:Bind Loc.ArgsLabel, Mode=OneWay}"
+                               Style="{StaticResource BodyStrongTextBlockStyle}"/>
+
+                    <!-- Header row -->
+                    <Grid Padding="4,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{x:Bind Loc.ColOn, Mode=OneWay}" Grid.Column="0"
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        <TextBlock Text="{x:Bind Loc.ColArgument, Mode=OneWay}" Grid.Column="1"
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        <TextBlock Text="{x:Bind Loc.ColNote, Mode=OneWay}" Grid.Column="2"
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                    </Grid>
+
+                    <ListView x:Name="ArgsList"
+                              MinHeight="80" MaxHeight="200"
+                              SelectionMode="Single"
+                              Background="{ThemeResource LayerFillColorDefaultBrush}"
+                              CornerRadius="4">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Padding" Value="4,2"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="models:CustomOption">
+                                <Grid ColumnSpacing="8" VerticalAlignment="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <CheckBox Grid.Column="0"
+                                              IsChecked="{x:Bind Enabled, Mode=TwoWay}"
+                                              VerticalAlignment="Center"/>
+                                    <TextBox Grid.Column="1"
+                                             Text="{x:Bind Arg, Mode=TwoWay}"
+                                             PlaceholderText="--argument"
+                                             BorderThickness="0"
+                                             Background="Transparent"/>
+                                    <TextBox Grid.Column="2"
+                                             Text="{x:Bind Desc, Mode=TwoWay}"
+                                             PlaceholderText="note"
+                                             BorderThickness="0"
+                                             Background="Transparent"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button Content="{x:Bind Loc.AddArgBtn, Mode=OneWay}" Click="OnAddArg_Click"/>
+                        <Button Content="{x:Bind Loc.RemoveArgBtn, Mode=OneWay}" Click="OnRemoveArg_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</ContentDialog>

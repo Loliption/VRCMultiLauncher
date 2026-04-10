@@ -1,0 +1,34 @@
+<Project>
+  <!--
+    WindowsAppSDK の MrtCore.PriGen.targets が定義するターゲットは
+    Visual Studio 専用 DLL (Microsoft.Build.AppxPackage.dll 等) に依存しており、
+    dotnet CLI のみの環境では動作しない。VS なしでも動作するスタブに置き換える。
+  -->
+
+  <!-- デフォルトリソース言語の取得: GetDefaultResourceLanguage (VS依存) をスキップ -->
+  <Target Name="_GetDefaultResourceLanguage">
+    <PropertyGroup>
+      <DefaultResourceLanguage Condition="'$(DefaultResourceLanguage)' == ''">en-US</DefaultResourceLanguage>
+    </PropertyGroup>
+  </Target>
+
+  <!-- ビルド出力コレクション: ExpandPayloadDirectories (VS依存) をスキップ -->
+  <Target Name="GetMrtPackagingOutputs"
+          Returns="@(PackagingOutputs)"
+          DependsOnTargets="$(GetPackagingOutputsDependsOn)">
+    <!-- 非パッケージ化ビルドでは空を返す -->
+  </Target>
+
+  <!-- コピーローカルファイル収集: RemovePayloadDuplicates (VS依存) をスキップ -->
+  <Target Name="CopyLocalFilesOutputGroup"
+          DependsOnTargets="$(CopyLocalFilesOutputGroupDependsOn)"
+          Returns="@(CopyLocalFilesOutputGroupOutput)">
+    <ItemGroup>
+      <CopyLocalFilesOutputGroupOutput
+          Include="@(ReferenceCopyLocalPaths)"
+          Condition="'%(ReferenceCopyLocalPaths.Extension)' != '.xml' or '$(AppxCopyLocalFilesOutputGroupIncludeXmlFiles)' == 'true'">
+        <TargetPath>%(ReferenceCopyLocalPaths.DestinationSubDirectory)%(ReferenceCopyLocalPaths.Filename)%(ReferenceCopyLocalPaths.Extension)</TargetPath>
+      </CopyLocalFilesOutputGroupOutput>
+    </ItemGroup>
+  </Target>
+</Project>

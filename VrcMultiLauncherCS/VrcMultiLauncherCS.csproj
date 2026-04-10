@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <RootNamespace>VrcMultiLauncherCS</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <!-- Force build platform to x64 -->
+    <Platform>x64</Platform>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseWinUI>true</UseWinUI>
+    <!-- WindowsAppSDK が注入する win10-* RID を抑制するため x64 に限定 -->
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+
+    <!-- 非パッケージ化: WindowsAppSDK will not be self-contained to avoid unsupported RID issues -->
+    <WindowsPackageType>None</WindowsPackageType>
+    <WindowsAppSDKSelfContained>false</WindowsAppSDKSelfContained>
+    <SelfContained>false</SelfContained>
+    <!-- Microsoft.Build.Packaging.Pri.Tasks.dll が VS なしでは存在しないため PRI 展開を無効化 -->
+    <AppxGeneratePriEnabled>false</AppxGeneratePriEnabled>
+    <AppxGeneratePrisForPortableLibrariesEnabled>false</AppxGeneratePrisForPortableLibrariesEnabled>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.260224002" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.7705" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+</Project>
